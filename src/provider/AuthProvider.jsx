@@ -9,16 +9,21 @@ const AuthProvider = ({children}) => {
     const[loading, setLoading] = useState(true)
     const [myUser, setMyUSer] = useState(null)
     const googleProvider = new GoogleAuthProvider()
+
     const googleSignIn = () => {
         setLoading(true)
         return signInWithPopup(auth, googleProvider)
-        .then(result => {
-            const user = result.user;
-            return updateProfile(user, {
-                displayName : user.displayName,
+            .then(result => {
+                setMyUSer(result.user);   // ⬅ IMPORTANT
+                setLoading(false);
+                return result.user;
             })
-        })
-    }
+            .catch(error => {
+                setLoading(false);
+                console.log(error);
+            });
+}
+
     const createUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email,password)

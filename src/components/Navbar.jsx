@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { authContext } from "../provider/AuthProvider";
 // import { useEffect, useState } from "react";
 const Navbar = () => {
+    
     const {myUser, activeUser,accountOut} = useContext(authContext)
     const location = useLocation()
     const loginPage = location.pathname == '/auth/login';
